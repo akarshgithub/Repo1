@@ -1,0 +1,87 @@
+<apex:page StandardController="Opportunity" extensions="NewContactRoleExtension" id="pg">
+  <apex:includeScript value="/soap/ajax/26.0/connection.js"/> 
+  <script src="/soap/ajax/26.0/apex.js"></script>   
+  <apex:sectionHeader subtitle="Contact Roles for {!Opportunity.Name}"/>
+  <apex:form id="frm">
+  <apex:pageMessages ></apex:pageMessages>
+  <apex:pageBlock title="Contact Roles for {!Opportunity.Name}" tabStyle="Opportunity" id="pb">
+    <apex:pageBlockButtons >
+      <apex:commandButton value="Save" action="{!saveOCR}"/>
+      <apex:commandButton value="Cancel" action="{!cancel}"/>
+    </apex:pageBlockButtons>
+    
+    <apex:outputPanel rendered="{!(lstContactRole.size == 0)}">
+      No records to display
+    </apex:outputPanel>
+    
+    <table>
+      <tr>
+        <td width="60px;"><apex:outputText style="font-weight:bold;" value="Primary"></apex:outputText>  
+        </td>
+        <td width="100px;"> <apex:outputText style="font-weight:bold;" value="Contact"></apex:outputText> 
+        </td>
+       
+        <td style="padding-left:20px;" width="120px"> <apex:outputText style="font-weight:bold;" value="Title"></apex:outputText>
+        </td>
+         <td width="100px;"> <apex:outputText style="font-weight:bold;" value="Role"></apex:outputText>
+        </td>
+       </tr>
+        
+       <tr>
+        <td width="100px;" height="25px;"> <input type="radio" name="primary" value="-1" checked="true"/>
+        </td>
+        <td width="100px;"> <apex:outputText value="No Primary Contact"></apex:outputText>
+        </td>
+        <td width="100px;"> 
+        </td>
+        <td width="100px;"> 
+        </td>
+      </tr>
+      <apex:variable var="index" value="{!0}"/>
+      <apex:repeat value="{!lstContactRole}" var="ocr" id="rpt">
+        <tr>
+          <td> 
+            <apex:outputPanel rendered="{!ocr.isPrimary}">
+              <input type="radio" name="primary" value="{!index}" checked = "true"/>
+            </apex:outputPanel>
+            <apex:outputPanel rendered="{!!ocr.isPrimary}">
+              <input type="radio" name="primary" value="{!index}"/>
+            </apex:outputPanel>
+          </td>
+          <td> <apex:inputField value="{!ocr.contactId}" required="false" onchange="fetchContactDetail(this.id);" id="conid"/>
+          </td>
+          <td style="padding-left:20px;"> <apex:outputText rendered="{!NOT(ISBLANK(ocr.contactId))}" id="title" value="{!mpContactTitle[ocr.contactId]}"></apex:outputText> 
+          </td>
+          <td> <apex:inputField value="{!ocr.Role}"/>
+          </td>
+          
+        </tr>
+        <apex:variable var="index" value="{!index + 1}"/>
+      </apex:repeat>
+    </table>
+    
+  </apex:pageBlock>
+  <apex:pageBlock id="hidden" rendered="false"></apex:pageBlock>
+</apex:form>
+<script>
+  function fetchContactDetail(th) {
+    var outId = th.replace("conid","title");
+    setTimeout(function(){
+           fetchContactInfo(document.getElementById(th + '_lkid').value,outId);
+         },200);    
+  }
+  
+  function fetchContactInfo(contId,outId) {
+    sforce.connection.sessionId = '{!$Api.Session_ID}';
+    if(contId != '') {
+         var result = sforce.apex.execute("WebServiceUtil","fetchContactData", {contactId:contId});                  
+         if(result != '' && result != null && result.length>0) {                
+             document.getElementById(outId).innerHTML = result;
+         }         
+       }     
+  }
+</script>
+<apex:outputPanel rendered="false">
+{!Opportunity.AccountId}
+</apex:outputPanel>
+</apex:page>

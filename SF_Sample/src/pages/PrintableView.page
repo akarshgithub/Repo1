@@ -1,0 +1,155 @@
+<apex:page Controller="PrintableViewController" standardStylesheets="false" showHeader="false" action="{!callPrintView}" >
+<!--<apex:stylesheet value="{!URLFOR($Resource.Design, '/assets/styles/salesforce-lightning-design-system.min.css')}" />-->
+    <style>
+    
+        hr { border-bottom: 1px solid black;width: 100%; }
+        
+        a{ text-decoration: none;color:black;}
+        
+        table { 
+           width: 100%; 
+           word-wrap:break-word;
+           table-layout: fixed;
+        }
+        
+        .bPageBlock .labelCol, body .print .topics-label {
+            padding-top: 2px;
+            padding-right: 10px;
+            padding-bottom: 2px;
+            text-align: right;
+            font-size: 81%;
+            font-weight: bold;
+            border-bottom: 0px solid #e3deb8 !important;
+            
+          }
+        
+        .bPageBlock .dataCol {
+            padding-top: 2px;
+            padding-right: 2px;
+            padding-bottom: 2px;
+            padding-left: 10px;
+            text-align: left;
+            font-size: 91%;
+            border-bottom: 0px solid #e3deb8 !important;
+        }
+        
+        .bPageBlock {
+              border-top: 0px solid #222 !important;
+        }
+        
+      .printControls {
+            float: right;
+            font-size: 85%;
+        }
+        
+        
+        body .pbBody table.list tr th, body .pbBody table.list tr td {
+             border: 0px solid #ededed !important; 
+     }
+        
+       
+     
+     body .bRelatedList .pbBody table.list, body .apexp .pbBody table.list {
+         border: 0px solid #e0e3e5 !important;
+    }
+      
+      body .pbBody table.list{ background:none;}
+    body .pbBody table.list {
+     //background-color: none; */
+     border-top: 0px solid #e0e3e5 !important; 
+    }    
+        
+        
+    </style> 
+
+            
+         <script>
+            function closeWindow() 
+            {
+                if( (typeof sforce != 'undefined') && (sforce != null) ) {
+                     
+                     sforce.one.back(true);
+                }
+                else {                
+                  window.top.close(); 
+                }
+                
+            }
+            
+            function printPage() {
+                window.print();
+            }
+            
+    </script>  
+    <body onload="printPage();">      
+    <apex:form >
+        <apex:pageBlock >
+      <!--      <apex:image value="{!$Resource.SFDCLogo}" /> -->
+               <!-- <apex:outputLink onclick="myFunction()" style="margin-left:80%;">Print Page</apex:outputLink><br/>-->
+             <div class="printControls">
+                 <ul>
+                     <li>
+                        <apex:outputLink onclick="closeWindow();" >Close Window</apex:outputLink>
+                     </li>
+                     <li>
+                         <apex:outputLink onclick="printPage()" >Print Page</apex:outputLink>
+                     </li>
+                 </ul>
+            </div>  
+            
+            <hr/>
+            <div>                      
+                <apex:pageBlockSection columns="2">
+                    <apex:repeat value="{!fieldAPIName}" var="cc">
+                        <apex:outputField value="{!record[cc]}" />
+                    </apex:repeat>
+                </apex:pageBlockSection>
+            </div>
+            
+            
+              <div>
+
+                <apex:repeat value="{!listRelatedListsDisplay}" var="outerKey">
+
+                    <h2>{!mapRelatedListAPILabel[outerKey]}</h2>
+
+
+
+
+                    <apex:repeat value="{!relatedListRecordsMap[outerKey]}" var="s">
+                        <hr/>
+                        <apex:pageblocksection >
+                            <table class="list" border="0" cellpadding="0" cellspacing="0">
+
+                                <tr>
+
+                                    <div>
+
+                                        <table class="list" border="0" cellpadding="0" cellspacing="0">
+                                            <tbody>
+                                                <apex:repeat value="{!mapRelatedListFields[outerKey]}" var="f"> 
+
+                                                    <tr>
+                                                       <apex:outputlabel value="{!mapMapFieldAPILabel[outerKey][f]}"/>
+                                                       <apex:outputlabel value="{!s[f]}"/>
+                                                    </tr>
+
+
+                                                
+                                                </apex:repeat>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </tr>
+                            </table>
+                        </apex:pageblocksection>
+                    </apex:repeat>
+
+                </apex:repeat>
+
+            </div>
+        </apex:pageBlock>
+    </apex:form>
+    </body>
+</apex:page>

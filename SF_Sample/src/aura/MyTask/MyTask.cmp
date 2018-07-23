@@ -1,0 +1,25 @@
+<aura:component access="global" controller="lightingclass" implements="force:appHostable,flexipage:availableForAllPageTypes">
+   <ltng:require styles="/resource/SLDS102/assets/styles/salesforce-lightning-design-system.min.css"/>
+   <aura:attribute name="tasks" type="task[]"/>
+   <div class="col-md-12">
+   <div class="col-md-3 margn">
+       
+<ui:inputSelect multiple="false"  change="{!c.onclick1}" aura:id="nameOutput">
+   <ui:inputSelectOption text="Today" label="Today"  />
+       
+   <ui:inputSelectOption text="All" label="All" />
+       
+   <ui:inputSelectOption text="yesterday" label="yesterday"/>
+</ui:inputSelect>
+       </div>
+   <div class="col-md-9">
+   
+   
+  
+   <aura:iteration var="task1" items="{!v.tasks}">
+   	<p>{!task1.Id} : {!task1.Status}</p>
+   </aura:iteration>
+   
+   </div>
+       </div>
+</aura:component>

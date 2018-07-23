@@ -1,0 +1,7 @@
+<apex:page standardController="Contact" extensions="displyafielddyanmaicallybyquery" >
+<Apex:form >
+  <apex:repeat value="{!fieldapiname}" var="cc">
+ <Apex:outputLabel >Field name <b>{!cc}</b></Apex:outputLabel> <apex:outputLabel value="{!con[cc]}"></apex:outputLabel> <br/>
+  </apex:repeat>
+  </Apex:form>
+</apex:page>

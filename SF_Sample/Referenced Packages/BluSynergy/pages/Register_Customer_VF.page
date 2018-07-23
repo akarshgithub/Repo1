@@ -1,0 +1,76 @@
+<apex:page StandardController="Account" Extensions="blusyn.Register_Customer_AC">
+<script>
+
+     var tip=new Array
+           tip[0]='Export this Salesforce account to the BluSynergy Billing system!'
+                      
+     function showtip(current,e,num)
+        {
+         if (document.layers) // Netscape 4.0+
+         {
+                 theString="<DIV CLASS='ttip'>"+tip[num]+"</DIV>"
+                 document.tooltip.document.write(theString)
+                 document.tooltip.document.close()
+                 document.tooltip.left=e.pageX+14+'px'
+                 document.tooltip.top=e.pageY+2+'px'
+                 document.tooltip.visibility="show"
+         }
+         else
+           {
+            if(document.getElementById) // Netscape 6.0+ and Internet Explorer 5.0+
+              {
+               elm=document.getElementById("tooltip")
+               elml=current
+               elm.innerHTML=tip[num]
+               elm.style.height=elml.style.height
+               elm.style.top=parseInt(elml.offsetTop+elml.offsetHeight)+'px'
+               elm.style.left=parseInt(elml.offsetLeft+elml.offsetWidth+10)+'px'
+               elm.style.visibility = "visible"
+              }
+           }
+        }
+        function hidetip(){
+        if (document.layers) // Netscape 4.0+
+           {
+            document.tooltip.visibility="hidden"
+           }
+        else
+        {
+            if(document.getElementById) // Netscape 6.0+ and Internet Explorer 5.0+
+            {
+                elm.style.visibility="hidden"
+            }
+        } 
+    }
+</script>  
+
+<style type="text/css">
+   p{
+    font-family: Times New Roman,sans-serif;
+    font-size: 14px; 
+    }
+    
+    
+</style>
+<apex:form id="theform">
+<apex:pageBlock title="Register Customer:"><p>Select the billing contact that will receive invoices and receipts. If the 
+
+billing contact is not yet present in Salesforce, then cancel out and create this contact first.</p><br></br>
+<apex:messages title="Errors Occured" styleClass="errorMsg" style="font-family:verdana,garamond,serif;" />
+    
+    <apex:panelgrid columns="4">        
+        <apex:selectList value="{!SelectedContact}" multiselect="false" size="1">
+            <apex:selectOptions value="{!Contacts}"/>
+        </apex:selectList> 
+    
+    <apex:commandbutton value="Configure Billing Account" action="{!doSomething}" onMouseover="showtip(this,event,'0')" onMouseOut="hidetip()" reRender="theform"/>
+    <apex:commandbutton value="Cancel" action="{!Cancel}"/>
+    <div id="tooltip" style="position:left;visibility:hidden;border:1px solid black;font-size:12px;layer-background-color:lightyellow;background-color:lightyellow;padding:1px"></div>  
+    
+    <!--<apex:outputLabel value="{!WSResponse}"/>-->
+    </apex:panelgrid>
+    
+</apex:pageBlock>
+
+</apex:form>
+</apex:page>

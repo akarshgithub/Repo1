@@ -1,0 +1,14 @@
+<aura:component >    
+    
+    <aura:attribute name="fields" type="String" default="Subject"/>
+    <aura:attribute name="task" type="Task" default="{ 'sobjectType': 'Task' }"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <!--
+    {!v.fields}
+    -->
+    
+    <force:inputField value="{!v.task.OwnerId}" class="slds-input"/> 
+    <force:inputField value="{!v.task.ActivityDate}" class="slds-input"/> 
+    <force:recordEdit aura:id="edit" recordId="00T9000002UsrcG"/>
+
+</aura:component>

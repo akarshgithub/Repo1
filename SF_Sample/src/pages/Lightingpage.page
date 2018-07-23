@@ -1,0 +1,145 @@
+<apex:page standardController="Account">
+ <article class="slds-card">
+  <div class="slds-card__header slds-grid">
+    <header class="slds-media slds-media--center slds-has-flexi-truncate">
+      <div class="slds-media__figure">
+       <!-- <svg aria-hidden="true" class="slds-icon slds-icon-standard-contact slds-icon--small">
+          <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#contact"></use>
+        </svg> -->
+      </div>
+      <div class="slds-media__body slds-truncate">
+        <h2>
+          <a href="javascript:void(0);" class="slds-text-link--reset">
+            <span class="slds-text-heading--small">Contacts (3)</span>
+          </a>
+        </h2>
+      </div>
+    </header>
+    <div class="slds-no-flex">
+      <button class="slds-button slds-button--neutral">New</button>
+    </div>
+  </div>
+  <div class="slds-card__body">
+    <div class="slds-card__body--inner slds-grid slds-wrap slds-grid--pull-padded">
+      <div class="slds-tile slds-media slds-card__tile slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-3 slds-hint-parent">
+        <div class="slds-media__figure">
+          <div class="slds-icon_container">
+            <!--<svg aria-hidden="true" class="slds-icon slds-icon-standard-contact slds-icon--small">
+              <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#contact"></use>
+            </svg> -->
+            <span class="slds-assistive-text">Contact</span>
+          </div>
+        </div>
+        <div class="slds-media__body">
+          <div class="slds-grid slds-grid--align-spread slds-has-flexi-truncate">
+            <h3 class="slds-truncate" title="Related Record Title 1"><a href="javascript:void(0);">Related Record Title 1</a></h3>
+            <div class="slds-shrink-none">
+              <button class="slds-button slds-button--icon-border-filled slds-button--icon-x-small" aria-haspopup="true" title="More Actions">
+               <!-- <svg aria-hidden="true" class="slds-button__icon slds-button__icon--hint">
+                  <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+                </svg> -->
+                <span class="slds-assistive-text">More options</span>
+              </button>
+            </div>
+          </div>
+          <div class="slds-tile__detail slds-text-body--small">
+            <dl class="slds-dl--horizontal">
+              <dt class="slds-dl--horizontal__label">
+                <span class="slds-truncate" title="Type">Type:</span>
+              </dt>
+              <dd class="slds-dl--horizontal__detail slds-tile__meta">
+                <span class="slds-truncate" title="Visit">Visit</span>
+              </dd>
+              <dt class="slds-dl--horizontal__label">
+                <span class="slds-truncate" title="Date">Date:</span>
+              </dt>
+              <dd class="slds-dl--horizontal__detail slds-tile__meta">
+                <span class="slds-truncate" title="1/31/15 3:45PM">1/31/15 3:45PM</span>
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div class="slds-tile slds-media slds-card__tile slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-3 slds-hint-parent">
+        <div class="slds-media__figure">
+          <div class="slds-icon_container">
+           <!-- <svg aria-hidden="true" class="slds-icon slds-icon-standard-contact slds-icon--small">
+              <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#contact"></use>
+            </svg> -->
+            <span class="slds-assistive-text">Contact</span>
+          </div>
+        </div>
+        <div class="slds-media__body">
+          <div class="slds-grid slds-grid--align-spread slds-has-flexi-truncate">
+            <h3 class="slds-truncate" title="Related Record Title 1"><a href="javascript:void(0);">Related Record Title 1</a></h3>
+            <div class="slds-shrink-none">
+              <button class="slds-button slds-button--icon-border-filled slds-button--icon-x-small" aria-haspopup="true" title="More Actions">
+              <!--  <svg aria-hidden="true" class="slds-button__icon slds-button__icon--hint">
+                  <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+                </svg> -->
+                <span class="slds-assistive-text">More options</span>
+              </button>
+            </div>
+          </div>
+          <div class="slds-tile__detail slds-text-body--small">
+            <dl class="slds-dl--horizontal">
+              <dt class="slds-dl--horizontal__label">
+                <span class="slds-truncate" title="Type">Type:</span>
+              </dt>
+              <dd class="slds-dl--horizontal__detail slds-tile__meta">
+                <span class="slds-truncate" title="Visit">Visit</span>
+              </dd>
+              <dt class="slds-dl--horizontal__label">
+                <span class="slds-truncate" title="Date">Date:</span>
+              </dt>
+              <dd class="slds-dl--horizontal__detail slds-tile__meta">
+                <span class="slds-truncate" title="1/31/15 3:45PM">1/31/15 3:45PM</span>
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div class="slds-tile slds-media slds-card__tile slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-3 slds-hint-parent">
+        <div class="slds-media__figure">
+          <div class="slds-icon_container">
+            <!--<svg aria-hidden="true" class="slds-icon slds-icon-standard-contact slds-icon--small">
+              <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#contact"></use>
+            </svg> -->
+            <span class="slds-assistive-text">Contact</span>
+          </div>
+        </div>
+        <div class="slds-media__body">
+          <div class="slds-grid slds-grid--align-spread slds-has-flexi-truncate">
+            <h3 class="slds-truncate" title="Related Record Title 1"><a href="javascript:void(0);">Related Record Title 1</a></h3>
+            <div class="slds-shrink-none">
+              <button class="slds-button slds-button--icon-border-filled slds-button--icon-x-small" aria-haspopup="true" title="More Actions">
+               <!-- <svg aria-hidden="true" class="slds-button__icon slds-button__icon--hint">
+                  <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down"></use>
+                </svg> -->
+                <span class="slds-assistive-text">More options</span>
+              </button>
+            </div>
+          </div>
+          <div class="slds-tile__detail slds-text-body--small">
+            <dl class="slds-dl--horizontal">
+              <dt class="slds-dl--horizontal__label">
+                <span class="slds-truncate" title="Type">Type:</span>
+              </dt>
+              <dd class="slds-dl--horizontal__detail slds-tile__meta">
+                <span class="slds-truncate" title="Visit">Visit</span>
+              </dd>
+              <dt class="slds-dl--horizontal__label">
+                <span class="slds-truncate" title="Date">Date:</span>
+              </dt>
+              <dd class="slds-dl--horizontal__detail slds-tile__meta">
+                <span class="slds-truncate" title="1/31/15 3:45PM">1/31/15 3:45PM</span>
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slds-card__footer"><a href="javascript:void(0);">View All <span class="slds-assistive-text">entity type</span></a></div>
+</article>
+</apex:page>

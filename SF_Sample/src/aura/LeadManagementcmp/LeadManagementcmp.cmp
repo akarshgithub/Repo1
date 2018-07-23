@@ -1,0 +1,494 @@
+<aura:component controller="leadmanagementcontroller" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" > 
+    
+    <ltng:require scripts="/resource/LMC_JQuery/" afterScriptsLoaded="{!c.afterScriptsLoaded}" />
+    
+    <aura:handler name="init" value="{!this}" action="{!c.leadwithcheckbox}"/>
+    <aura:attribute name="num1" type="Integer" default="0"/>
+    <aura:attribute name="Spinner" type="boolean" default="false"/>
+    <aura:attribute name="informessage" type="boolean" default="false"/>
+    <aura:attribute name="wrpvar" type="leadmanagementwraperclass[]"/>
+    <aura:attribute name="emailhistory" type="Lead_history__c[]"/>
+    <aura:attribute name="leaddetails" type="Lead"/>
+    <aura:attribute name="histrytaskdetails" type="Task"/>
+    <aura:attribute name="histryeventdetails" type="Event"/>
+    <aura:attribute name="eventrecord" type="Event[]"/>
+    <aura:attribute name="taskrecrd" type="Task[]"/>
+    <aura:attribute name="histryevent" type="Event[]"/>
+    <aura:attribute name="histrytask" type="Task[]"/>  
+    <aura:attribute name="wrpvarrled" type="leadconversonnn[]"/>
+    
+    <style>
+  
+        #maincontainer {font-family: 'Salesforce Sans',Arial,sans-serif;
+        margin: auto;
+        padding: 0px;
+        width:100%; 
+        }
+        @media screen and (min-device-width:320px) and (max-device-width:768px) {
+        #maincontainer{ margin:0px auto; padding:0px;  width:auto; text-align:left;
+        }
+        .slds-button{ margin-bottom:10px!important;}
+        
+        }
+        @media screen and (min-device-width:300px) and (max-device-width:320px) 
+        and (orientation : portrait) {
+        form {
+        display: block;
+        width: 320px;
+        margin-top: 0em;
+        }
+        }
+    </style>
+    <div id="maincontainer">
+     
+        <!-- header section --> 
+        <div class="slds-page-header header-section" role="banner" >
+            <div class="slds-grid slds-grid--pull-padded">
+                <div class="slds-p-horizontal--small slds-size--1-of-2 slds-medium-size--5-of-6 slds-large-size--3-of-12">
+                    <div class="slds-text-align--left">
+                        <img src="/resource/LMC_DesignSlds/LMC_Design/leadlogoo.jpeg" class="small-spinner" />
+
+                    </div>
+                </div>
+                <div class="slds-p-horizontal--small slds-size--1-of-2 slds-medium-size--1-of-6 slds-large-size--6-of-12">
+                    <ui:inputText class="slds-input globalsearch" placeholder="Search Lead..." keyup="{!c.searchlead}" updateOn="keyup" aura:id="leadname"/>
+                </div>
+                <div class="slds-p-horizontal--small slds-size--1-of-2 slds-medium-size--1-of-6 slds-large-size--3-of-12"></div>
+            </div>
+        </div>
+        <!-- end header section -->
+        <aura:if isTrue="{!v.informessage}">
+        <ui:message severity="warning" closable="true">
+          <center><div class="messagefont">Please select atleast one record.</div></center>
+         </ui:message>
+        </aura:if>
+ 
+                                 
+        <div class="page-content">
+            
+            <div class="slds-grid slds-wrap slds-grid--pull-padded"> 
+                <div class="slds-p-horizontal--small slds-size--1-of-1 toptabs"> 
+                    <div class="voffset3"></div>
+                    <button type="button" class="slds-button slds-button--neutral emailbutton" onclick="{!c.openmodal}"><img src="/resource/LMC_DesignSlds/LMC_Design/email.jpeg" class="small-spinner" width="15"/> Send Email</button>
+                    &nbsp;<button type="button" class="slds-button slds-button--neutral convertbutton" onclick="{!c.converrtlid}"><img src="/resource/LMC_DesignSlds/LMC_Design/convert.png" class="small-spinner" width="25"/> Convert</button>
+                    <button type="button" class="slds-button slds-button--neutral deletebutton" onclick="{!c.massdelete}"><img src="/resource/LMC_DesignSlds/LMC_Design/delete.png" class="small-spinner" width="15"/> Delete</button>
+                    <button type="button" class="slds-button slds-button--neutral pullright" onclick="{!c.shoehidehistory}"> Show Email History</button>
+                    <div class="voffset3"></div>
+                </div>   
+                
+                <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--8-of-12">
+                    <div class="table-responsive">
+                        <table id="tableI" class="slds-table slds-table--bordered table" >
+                            <thead>
+                                <tr class="slds-text-title--caps header">
+                                    <td width="100"> Select </td>
+                                    <td > Name </td>
+                                    <td > Company </td>
+                                    <td> Email  </td>
+                                    <td > Phone </td>
+                                    <td> &nbsp;Status</td>
+                                    <th width="150">Activity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <aura:iteration items="{!v.wrpvar}" var="item">
+                                    <tr>
+                                        <td><div class="checkbox"><ui:inputCheckbox aura:id="checkbox" value="{!item.checkkvar}"/></div></td>
+                                        <td align="left">
+                                            <a><ui:outputText value="{!item.leadvar.Name}" click="{!c.details}" title="{!item.leadvar.Id}" />
+                                            </a></td>
+                                        <td>{!item.leadvar.Company}"</td>
+                                        <td>{!item.leadvar.Email}</td>
+                                        <td>{!item.leadvar.Phone}</td>
+                                        <td>{!item.leadvar.Status}</td>
+                                        <td><ui:button buttonTitle="{!item.leadvar.Id}" class="detilbuton" label="Show Activity" press="{!c.showactivity}"/></td>
+                                    </tr>
+                                </aura:iteration>
+                            </tbody>
+                        </table> 
+                        
+                    </div><br/>
+                    <div class="slds-grid">
+                        <div class="slds-col slds-size--6-of-6">
+                            <ui:button class="detilbuton pullleft" label="Next" press="{!c.next}"/> &nbsp; 
+                            <ui:button class="detilbuton pullleft" label="Pre" press="{!c.prev}"/>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="slds-p-horizontal--small slds-size--1-of-1 slds-medium-size--1-of-1 slds-large-size--4-of-12 rightpanel" > 
+                    <div class="search-bar showhde">
+                        <h2>Email History </h2><br/>
+                        <ui:inputText class="slds-input" placeholder="Search History..." keyup="{!c.searchhistory}" updateOn="keyup" aura:id="shistory"/>
+                        <p></p><br/>
+                        <aura:iteration items="{!v.emailhistory}" var="item">
+                            <div class="emailhistoryname">
+                                <b>{!item.Name}</b> &nbsp; {!item.Email__c}
+                            </div> 
+                        </aura:iteration>       
+                    </div>
+                    
+                    <div class="slds-tabs--scoped" style="display:none;" id="showtabsec">
+                        <ul class="slds-tabs--scoped__nav" role="tablist">
+                            <li class="slds-tabs--scoped__item slds-text-title--caps slds-active" id="tab-scoped-1__itemss" title="Next Step" style="width:30%;" role="presentation"><a class="slds-tabs--scoped__link " href="javascript:void(0);" onclick="{!c.nextstp}" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-scoped-1" id="tab-scoped-1__item">Next Step</a></li>
+                            <li class="slds-tabs--scoped__item slds-text-title--caps" id="tab-scoped-2__itemss" title="Past Activity" style="width:30%;" role="presentation"><a class="slds-tabs--scoped__link" href="javascript:void(0);" onclick="{!c.pasthistry}" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-scoped-2" id="tab-scoped-2__item">Past Activity</a></li>
+                        </ul>
+                    </div>
+                    <div id="tab-scoped-1" class="slds-tabs--scoped__content slds-show showactvity" style="height:300px; overflow:auto; display:none;" role="tabpanel" aria-labelledby="tab-scoped-1__item" >
+                        <div class="historyeventdivwidth">
+                            <aura:iteration items="{!v.eventrecord}" var="items">
+                                <div class="next-step-list">
+								<ul>
+                                    <li><img src="/resource/LMC_DesignSlds/LMC_Design/eventicon.png" width="28"/></li>   
+                                 <li> <a>  <ui:outputText value="{!items.Subject}" title="{!items.Id}" click="{!c.histeventdetils}"/>
+                                        </a> <br/>
+                                    Start-<ui:outputDate value="{!items.StartDateTime}" />  End-<ui:outputDate value="{!items.EndDateTime}" />
+                                    </li>
+                                </ul>
+                                    <div class="clearfix"></div>
+                                </div> 
+                            </aura:iteration> 
+                            
+                            <aura:iteration items="{!v.taskrecrd}" var="item">
+                                <div class="next-step-list">
+                                <ul>
+                                    <li><img src="/resource/LMC_DesignSlds/LMC_Design/taskiconn.png" width="28"/></li>   
+                                 <li><a> <ui:outputText value="{!item.Subject}" title="{!item.Id}" click="{!c.histtaskdetils}"/> </a></li>
+                                </ul>
+                                </div> 
+                            </aura:iteration> 
+                        </div>
+                    </div>
+                    <div id="tab-scoped-2" class="slds-tabs--scoped__content slds-show showacthistry" role="tabpanel" aria-labelledby="tab-scoped-2__item" style="height:300px; overflow:auto; display:none;">
+                        <div class="historyeventdivwidth"> 
+                            <aura:iteration items="{!v.histryevent}" var="item">
+                                 <div class="next-step-list">
+                                <ul>
+                                    <li><img src="/resource/LMC_DesignSlds/LMC_Design/eventicon.png" width="28"/></li>   
+                                 <li> <a> <ui:outputText value="{!item.Subject}" title="{!item.Id}" click="{!c.histeventdetils}"/>  </a> 
+                                     <br/> Start-<ui:outputDate value="{!item.StartDateTime}" />  End-<ui:outputDate value="{!item.EndDateTime}" />
+                                    </li>
+                                </ul>
+                                </div>
+                                
+                                <div class="marginevent">
+                                    
+                                </div>
+                            </aura:iteration> 
+                            
+                            <aura:iteration items="{!v.histrytask}" var="item">
+                               <div class="next-step-list">
+                                <ul>
+                                    <li><img src="/resource/LMC_DesignSlds/LMC_Design/taskiconn.png" width="28"/></li>
+                                    <li> <a>
+                                            <ui:outputText value="{!item.Subject}" title="{!item.Id}" click="{!c.histtaskdetils}" 									/>
+                                        </a><br/></li>
+                                        </ul>
+                                </div>
+                                
+                            </aura:iteration> 
+                        </div>
+                    </div> 
+                    
+                    
+                    <div style="display:none; height:400px; margin-top:25px; overflow:auto;" id="showtaskwindodetails">
+                        <center><h4>Details</h4></center><br/> 
+                        <div class="slds-grid">
+                            <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-1 slds-medium-size--1-of-2">
+                                <table class="slds-table slds-table--bordered table" >
+                                    
+                                    <tbody>
+                                        <tr class="detailsteblewidth">
+                                            <td><p class="detainleadfontsize">Assigned To</p><a href="https://shivam12345-dev-ed.lightning.force.com/one/one.app#/sObject/00528000001JRFeAAO/view?t=1480981618014">{!v.histrytaskdetails.Owner.Name}</a> </td>
+                                        </tr>
+                                        <tr class="detailsteblewidth">
+                                            <td><p class="detainleadfontsize">Subject</p> {!v.histrytaskdetails.Subject}</td>
+                                        </tr>
+                                        <tr class="detailsteblewidth">
+                                            <td><p class="detainleadfontsize">Due Date</p> {!v.histrytaskdetails.ActivityDate}</td>
+                                        </tr>
+                                        <tr class="detailsteblewidth">
+                                            <td><p class="detainleadfontsize">Priority</p> {!v.histrytaskdetails.Priority}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-1 slds-medium-size--1-of-2">
+                                <table class="slds-table slds-table--bordered table" >
+                                    <tbody>
+                                        <tr class="detailsteblewidth">
+                                            
+                                            <td><p class="detainleadfontsize">Status</p>{!v.histrytaskdetails.Status} </td>
+                                            
+                                        </tr>
+                                        
+                                        <tr class="detailsteblewidth">
+                                            <td><p class="detainleadfontsize">Name</p> {!v.histrytaskdetails.Who.Name}</td>
+                                        </tr>
+                                        <tr class="detailsteblewidth">
+                                            <td><p class="detainleadfontsize">Related To</p> </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p> </p>
+                    <div id="showeventwindodetails" style="display:none; margin-top:25px; height:400px; overflow:auto;">
+                        <center><h4>Details</h4></center><br/> 
+                        
+                        <div class="slds-grid">
+                            <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-1 slds-medium-size--1-of-2">
+                                <table class="slds-table slds-table--bordered table" >
+                                    
+                                    <tbody>
+                                        <tr class="detailsteblewidth">
+                                            
+                                            <td><p class="detainleadfontsize">Assigned To</p><a href="#">{!v.histryeventdetails.Owner.Name}</a> </td>
+                                            
+                                        </tr>
+                                        
+                                        <tr class="detailsteblewidth">
+                                            <td><p class="detainleadfontsize">Subject</p> {!v.histryeventdetails.Subject}</td>
+                                        </tr>
+                                        <tr class="detailsteblewidth">
+                                            <td><p class="detainleadfontsize">Name</p> {!v.histryeventdetails.Who.Name}</td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-1 slds-medium-size--1-of-2">
+                                <table class="slds-table slds-table--bordered table" >
+                                    
+                                    <tbody>
+                                        <tr class="detailsteblewidth">
+                                            <td><p class="detainleadfontsize">Start</p>{!v.histryeventdetails.StartDateTime} </td>
+                                        </tr>
+                                        
+                                        <tr class="detailsteblewidth">
+                                            <td><p class="detainleadfontsize">End</p> {!v.histryeventdetails.EndDateTime}</td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
+        
+        
+        
+        <!-- Send Email Modal -->
+        <div id="modaltest" style="display:none;">
+            <div role="dialog" tabindex="-1" aria-labelledby="header43" class="slds-modal slds-modal--large slds-fade-in-open">
+                <div class="slds-modal__container modalwidth">
+                    <div class="slds-modal__header bckgrdcolor">
+                        <button class="slds-button slds-modal__close slds-button--icon-inverse" title="Close" onclick="{!c.canclemailmodal}">
+                            <span class="crossmodalsize">x</span> 
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="header43" class="slds-text-heading--medium herdrstyle textleft">Send Email</h2>
+                    </div>
+                    <div class="slds-modal__content slds-p-around--medium">
+                        <div>
+                            <p>Subject:</p><div class="voffset2"></div>
+                            <ui:inputText class="slds-input" placeholder="Subject..." aura:id="subject"/>
+                        </div><br/>
+                        
+                        <div>
+                            <p>Body:</p><div class="voffset2"></div>
+                            <ui:inputTextArea class="slds-input bodys" placeholder="Body..." aura:id="body"/>
+                        </div>
+                    </div>
+                    <div class="slds-modal__footer">
+                        <div class="voffset2"></div>
+                        <button class="btn" onclick="{!c.sndmail}">Send Email</button>&nbsp;&nbsp; 
+                        
+                        <button class="btn" onclick="{!c.canclemailmodal}">Cancel</button>
+                        <div class="voffset2"></div>
+                    </div>
+                </div>
+            </div><br/>
+            <div class="slds-backdrop slds-backdrop--open"></div>
+            
+            
+        </div>
+        
+        <!-- Modal convert lead-->
+        <div id="convrtlid" style="display:none;">
+            <div role="dialog" tabindex="-1" aria-labelledby="header43" class="slds-modal slds-modal--large slds-fade-in-open">
+                <div class="slds-modal__container modalwidth">
+                    <div class="slds-modal__header bckgrdcolor">
+                        <button class="slds-button slds-modal__close slds-button--icon-inverse" title="Close" onclick="{!c.canclconverleadlmodal}">
+                            <span class="crossmodalsize">x</span> 
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="header43" class="slds-text-heading--medium herdrstyle textleft">Convert Lead</h2> 
+                    </div>
+                    <div class="slds-modal__content slds-p-around--medium">
+                        <div class="table-responsive">
+                        <table id="tableI" class="slds-table slds-table--bordered table" >
+                            <thead>
+                                <tr>
+                                    <td style="padding-left: 0.7rem;">Lead Name</td>
+                                    <td>Status</td>
+                                    <td>Account</td>
+                                    <td>Not Create Opportunity</td>
+                                    <td>Opportunity</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <aura:iteration items="{!v.wrpvarrled}" var="item">
+                                    <tr>
+                                        <td>{!item.leadvarwrap.Name}</td>
+                                        <td><ui:inputSelect multiple="false" class="slds-select customselectbox"> <ui:inputSelectOption text="Closed-Converted" label="Closed-Converted" class="slds-picklist"/></ui:inputSelect> </td>
+                                        <td><ui:outputText value="{!item.leadvarwrap.Company}" class="slds-input"/></td>
+                                        <td><center><ui:inputCheckbox aura:id="checkbox" value="{!item.checkkvarlid}"/></center></td>
+                                        <td><aura:if isTrue="{!item.checkkvarlid == false}"><ui:inputText value="{!item.valuetoapendoppname}" class="slds-input"/> <aura:set attribute="else" ><input type="text" disabled="disabled" class="slds-input"></input></aura:set></aura:if></td>
+                                    </tr>
+                                </aura:iteration>
+                            </tbody>
+                        </table>   
+                            </div>
+                    </div>
+                    <div class="slds-modal__footer"> 
+                        <div class="voffset2"></div>
+                        <button type="button" class="btn customtabs" onclick="{!c.convertleaddd}">Convert</button>&nbsp;  
+                        <button class="btn customtabs" onclick="{!c.canclconverleadlmodal}">Cancel</button>
+                        <div class="voffset2"></div>
+                    </div>
+                </div>
+            </div><br/>
+            <div class="slds-backdrop slds-backdrop--open"></div>
+        </div>
+        
+        <!-- opportunity details Modal -->
+        <div id="oppdetailsmodal" style="display:none;">
+            <div role="dialog" tabindex="-1" aria-labelledby="header43" class="slds-modal slds-modal--large slds-fade-in-open">
+                <div class="slds-modal__container modalwidth">
+                    <div class="slds-modal__header bckgrdcolor">
+                        <button class="slds-button slds-modal__close slds-button--icon-inverse" title="Close" onclick="{!c.cancloppdetailslmodal}">
+                            <span class="crossmodalsize">x</span> 
+                            <span class="slds-assistive-text">Close</span>
+                        </button> 
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--1-of-8 textleft">
+                                <img src="/resource/LMC_DesignSlds/LMC_Design/leadlogoo.jpeg"/> 
+                            </div>
+                            <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--1-of-4">
+                                <span id="header43" class="slds-text-heading--medium herdrstyle"> <a href="#" class="leadname" style=" float:left;">{!v.leaddetails.Name}</a></span>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="slds-modal__content slds-p-around--medium">
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--2-of-4">
+                                
+                                <table class="slds-table slds-table--bordered table" >
+                                    
+                                    <tbody>
+                                        <tr class="detailsteblewidth">
+                                            <td><p class="detainleadfontsize">Lead Owner</p><a href="3">{!v.leaddetails.Owner.Name}</a> </td>
+                                        </tr>
+                                        
+                                        <tr class="detailsteblewidth">
+                                            <td><p class="detainleadfontsize">Name</p> {!v.leaddetails.Name}</td>
+                                        </tr>
+                                        
+                                        <tr class="detailsteblewidth">
+                                            <td><p class="detainleadfontsize">Company</p> {!v.leaddetails.Company}</td>
+                                        </tr>
+                                        
+                                        
+                                        <tr class="detailsteblewidth">
+                                            <td><p class="detainleadfontsize">Lead Source</p> {!v.leaddetails.LeadSource}</td>
+                                        </tr>
+                                        
+                                        <tr class="detailsteblewidth">
+                                            <td><p class="detainleadfontsize">Industry</p> {!v.leaddetails.Industry}</td>
+                                        </tr>
+                                        
+                                        <tr class="detailsteblewidth">
+                                            <td><p class="detainleadfontsize">Annual Revenue</p> {!v.leaddetails.AnnualRevenue}</td>
+                                        </tr>
+                                        
+                                        <tr class="detailsteblewidth">
+                                            <td><p class="detainleadfontsize">Country</p> {!v.leaddetails.Country}</td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>   
+                            </div>
+                            
+                            <div class="slds-col slds-size--1-of-1 slds-small-size--1-of-2 slds-medium-size--2-of-4">
+                                
+                                <table class="slds-table slds-table--bordered table" >
+                                    
+                                    <tbody>
+                                        
+                                        <tr class="detailsteblewidth">
+                                            <td><p class="detainleadfontsize">Phone</p> {!v.leaddetails.Phone}</td>
+                                        </tr>
+                                        
+                                        <tr class="detailsteblewidth">
+                                            <td><p class="detainleadfontsize">Mobile</p> {!v.leaddetails.MobilePhone}</td>
+                                        </tr>
+                                        
+                                        
+                                        
+                                        <tr class="detailsteblewidth">
+                                            <td><p class="detainleadfontsize">Email</p> {!v.leaddetails.Email}</td>
+                                        </tr>
+                                        
+                                        <tr class="detailsteblewidth">
+                                            <td><p class="detainleadfontsize">Website</p> {!v.leaddetails.Website}</td>
+                                        </tr>
+                                        
+                                        <tr class="detailsteblewidth">
+                                            <td><p class="detainleadfontsize">Lead Status</p> {!v.leaddetails.Status}</td>
+                                        </tr>
+                                        
+                                        <tr class="detailsteblewidth">
+                                            <td><p class="detainleadfontsize">Rating</p> {!v.leaddetails.Rating}</td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>   
+                                
+                                
+                            </div>
+                            
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+            </div><br/>
+            <div class="slds-backdrop slds-backdrop--open"></div>
+        </div>
+        
+         <!--loading spinner start... style=Brand Medium (blue dots)-->
+        
+       <aura:if isTrue="{!v.Spinner}">
+       <div aura:id="spinnerId" class="slds-spinner_container">
+       <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" id="spinner" role="alert">
+         <span class="slds-assistive-text">Loading</span>
+         <div class="slds-spinner__dot-a"></div>
+         <div class="slds-spinner__dot-b"></div>
+       </div>
+      </div>
+     </aura:if>
+  <!-- Loading spinner end-->   
+
+        
+    </div> 
+    
+</aura:component>

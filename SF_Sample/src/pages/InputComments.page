@@ -1,0 +1,21 @@
+<apex:page standardController="Contact" showHeader="false" sidebar="false">
+  <apex:form >
+     <apex:pageBlock title="Quick Edit: {!Contact.Name}">
+     
+          <apex:pageBlockSection title="Contact Details" columns="2">
+              <apex:inputField value="{!Contact.Phone}"/>
+              <apex:outputField value="{!Contact.MobilePhone}" label="Mobile #"/>
+              <apex:inputText value="{!Contact.Email}" label="{!Contact.FirstName + 's Email'}"/>
+              <apex:outputfield label="Date of Birth" value="{!contact.birthdate}" />
+          </apex:pageBlockSection>
+          <apex:pageblockSection title="harinder">
+             <apex:inputfield value="{!contact.phone}" label="Phone Number"/>
+             <apex:outputField label="My Phone#" value="{!contact.phone}"/>
+          </apex:pageblockSection>
+          <apex:pageBlockButtons >
+               <apex:commandButton action="{!save}" value="Hit to Save"/>
+               <apex:commandButton action="{!cancel}" value="Cancel Me"/>
+          </apex:pageBlockButtons>
+     </apex:pageBlock>
+  </apex:form>
+</apex:page>

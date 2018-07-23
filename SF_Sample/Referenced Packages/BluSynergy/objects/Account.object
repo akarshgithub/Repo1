@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>BS_CustomerRef__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Blusynergy Customer Number</label>
+        <length>50</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Billing_Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Billing Status</label>
+        <length>16</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Blue_URL__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Blu Response URL</label>
+        <length>255</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Current_Balance__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The current balance owed by this account</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The current balance owed by this account</inlineHelpText>
+        <label>Current Balance</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Customer_Number__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>BluSynergy Customer ID</label>
+        <length>20</length>
+        <required>false</required>
+        <trackFeedHistory>false</trackFeedHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <webLinks>
+        <fullName>BluBilling</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <encodingKey>UTF-8</encodingKey>
+        <linkType>url</linkType>
+        <masterLabel>Show Billing &amp; Payments</masterLabel>
+        <openType>replace</openType>
+        <protected>false</protected>
+        <url>/apex/blusyn__GetBilling_Detais_VF?AccId={!Account.Id}&amp;CustId={!Account.Customer_Number__c}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Create_Billing_Account</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Configure Billing Account</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>var id = &apos;{!Account.Customer_Number__c}&apos;;
+
+
+
+if (id.length == 0) 
+{ 
+  window.location=&quot;/apex/blusyn__Register_Customer_VF?AccId={!Account.Id}&quot;;
+}
+else
+{
+  var r=confirm(&quot;This account has already been configured with an BluSynergy account.  Unless you have deleted this account in BluSynergy and intend to repeat the export of this Salesforce.com Account to BluSynergy, you should cancel this operation&quot;);
+  if (r==true)
+  {
+    window.location=&quot;/apex/blusyn__Register_Customer_VF?AccId={!Account.Id}&quot;;
+  }
+  else
+  {
+  
+  }
+}</url>
+    </webLinks>
+</CustomObject>

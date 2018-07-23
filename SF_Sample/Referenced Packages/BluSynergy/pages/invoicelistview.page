@@ -1,0 +1,120 @@
+<apex:page controller="blusyn.InvoiceListView" tabStyle="blusyn__Invoice__c">
+  
+  <apex:form id="pageForm">
+        
+       <b>View:</b> &nbsp;<apex:selectList value="{!AccFilterId}" size="1" id="filterMenu" >
+            <apex:selectOption itemValue="None" itemLabel="-None-"></apex:selectOption>
+            <apex:selectOptions value="{!AccountExistingViews}"></apex:selectOptions>
+            <apex:actionSupport event="onchange"  action="{!resetFilter}" rerender="AccntTable" status="ajaxStatus"/>
+       </apex:selectList>
+      <!-- <apex:selectList value="{!secondView}" size="1" id="filterMenu2" style="float:right;">
+            <apex:selectOption itemValue="None" itemLabel="-None-"></apex:selectOption>
+            <apex:selectOption itemValue="rv" itemLabel="Recently Viewed"></apex:selectOption>
+            <apex:selectOption itemValue="mo" itemLabel="My Open"></apex:selectOption>
+            <apex:actionSupport event="onchange"  action="{!resetFilter2}" rerender="AccntTable" status="ajaxStatus"/>
+       </apex:selectList> -->
+
+
+       <apex:actionStatus id="ajaxStatus" startText="Loading..."  stopText=""/>
+<div style="height:10px;"></div>
+     <apex:pageBlock title="Invoices">
+        <apex:pageBlockButtons >
+               <!-- <apex:commandButton value="New" action="{!createNewCase}"/>  -->
+                <apex:commandButton action="{!firstPage}" value="|<<" reRender="AccntTable"  status="ajaxStatus" />
+                <apex:commandButton action="{!prev}" value="<" reRender="AccntTable"  status="ajaxStatus" />
+                <apex:commandButton action="{!next}" value=">" reRender="AccntTable"  status="ajaxStatus" />
+                <apex:commandButton action="{!lastPage}" value=">>|" reRender="AccntTable"  status="ajaxStatus" />
+            </apex:pageBlockButtons>
+
+            <apex:pageBlockTable value="{!Accounts}" var="item" id="AccntTable">
+                    <apex:column style="text-decoration:underline;">
+                        <apex:facet name="header">
+                           <apex:commandLink value="Invoice Number" action="{!toggleSort}" rerender="AccntTable,filterMenu">
+                                <!-- Value attribute should have field (API Name) to sort in asc or desc order -->
+                                <apex:param name="sortField" value="blusyn__invoiceNumber__c" assignTo="{!sortField}"/>
+                           </apex:commandLink>
+                        </apex:facet>
+                        <apex:outputText ></apex:outputText>
+                        <a href="{!appendedUrlForUserType}/invoice_vf?id={!item.id}">{!item.blusyn__invoiceNumber__c}</a>
+                    </apex:column>
+                     <apex:column >
+                        <apex:facet name="header">
+                           <apex:commandLink value="Invoice Date" action="{!toggleSort}" rerender="AccntTable" >
+                                <!-- Value attribute should have field (API Name) to sort in asc or desc order -->
+                                <apex:param name="sortField" value="blusyn__invoiceDate__c" assignTo="{!sortField}"/>
+                           </apex:commandLink>
+                        </apex:facet>
+                        <apex:outputField value="{!item.blusyn__invoiceDate__c}"/> 
+                        
+                    </apex:column>
+                      <apex:column style="text-decoration:underline;" >
+                        <apex:facet name="header">
+                           <apex:commandLink value="Account Name" action="{!toggleSort}" rerender="AccntTable">
+                                <!-- Value attribute should have field (API Name) to sort in asc or desc order -->
+                                <apex:param name="sortField" value="blusyn__customer__r.Name" assignTo="{!sortField}"/>
+                           </apex:commandLink>
+                        </apex:facet>
+                        <a href="{!appendedUrlForDefault}{!item.blusyn__customer__r.id}">{!item.blusyn__customer__r.Name}</a>
+                        
+                    </apex:column>  
+                    <apex:column style="text-align:right;" >
+                        <apex:facet name="header">
+                           <apex:commandLink value="Current Amount Due" action="{!toggleSort}" rerender="AccntTable">
+                                <!-- Value attribute should have field (API Name) to sort in asc or desc order -->
+                                <apex:param name="sortField" value="blusyn__currentAmountDue__c" assignTo="{!sortField}"/>
+                           </apex:commandLink>
+                        </apex:facet>
+                        <apex:outputField value="{!item.blusyn__currentAmountDue__c}" dir="RTL"/> 
+                        
+                    </apex:column>
+                    <apex:column style="text-align:right;">
+                        <apex:facet name="header">
+                           <apex:commandLink value="Payments And Adjustments" action="{!toggleSort}" rerender="AccntTable" style="text-decoration:none;">
+                                <!-- Value attribute should have field (API Name) to sort in asc or desc order -->
+                                <apex:param name="sortField" value="blusyn__paymentsAndAdjustments__c" assignTo="{!sortField}"/>
+                           </apex:commandLink>
+                        </apex:facet>
+                       <apex:outputField value="{!item.blusyn__paymentsAndAdjustments__c}" style="text-decoration:none;" dir="RTL"/> 
+                    </apex:column> 
+                    <apex:column style="text-align:right;">
+                        <apex:facet name="header">
+                           <apex:commandLink value="Outstanding Balance" action="{!toggleSort}" rerender="AccntTable">
+                                <!-- Value attribute should have field (API Name) to sort in asc or desc order -->
+                                <apex:param name="sortField" value="blusyn__outstandingBalance__c" assignTo="{!sortField}"/>
+                           </apex:commandLink>
+                        </apex:facet>
+                        <apex:outputField value="{!item.blusyn__outstandingBalance__c}"  style="float:right;"/> 
+                    </apex:column>    
+                    <apex:column >
+                        <apex:facet name="header">
+                           <apex:commandLink value="Status" action="{!toggleSort}" rerender="AccntTable">
+                                <!-- Value attribute should have field (API Name) to sort in asc or desc order -->
+                                <apex:param name="sortField" value="blusyn__status__c" assignTo="{!sortField}"/>
+                           </apex:commandLink>
+                        </apex:facet>
+                      <apex:outputField value="{!item.blusyn__status__c}"/> 
+                    </apex:column>  
+                   <!-- <apex:column style="text-decoration:underline;">
+                        <apex:facet name="header">
+                           <apex:commandLink value="Owner Name" action="{!toggleSort}" rerender="AccntTable">
+                                <!-- Value attribute should have field (API Name) to sort in asc or desc order 
+                                <apex:param name="sortField" value="Owner.Name" assignTo="{!sortField}"/>
+                           </apex:commandLink>
+                        </apex:facet>
+                        <a href="/support/CommunityViewCase?id={!item.id}"><apex:outputField value="{!item.owner.lastname}"/>,&nbsp;<apex:outputField value="{!item.owner.firstname}"/></a>
+                    </apex:column> -->
+                    
+                  <!--  <apex:column onclick="window.open('/support/CommunityViewCase?id={!item.id}')" style="text-decoration:underline;">
+                    
+                        <apex:facet name="header">
+                           <apex:commandLink value="Priority" action="{!toggleSort}" rerender="AccntTable">
+                                <!-- Value attribute should have field (API Name) to sort in asc or desc order 
+                                           <apex:param name="sortField" value="Priority" assignTo="{!sortField}"/>
+                           </apex:commandLink>
+                        </apex:facet>
+                        <apex:outputField value="{!item.Priority}" style="text-decoration:underline;"/>
+                    </apex:column>   -->
+            </apex:pageBlockTable>
+     </apex:pageBlock>
+   </apex:form>              
+</apex:page>

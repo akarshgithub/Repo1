@@ -1,0 +1,17 @@
+<apex:page standardController="blusyn__Invoice__c" extensions="blusyn.AttachmentController" showHeader="false" sidebar="false">
+    <script>
+        function clickfun(val){
+            window.parent.location.href = "/servlet/servlet.FileDownload?file="+val;
+        }
+    </script>
+    <apex:pageBlock >
+        <apex:pageBlockTable value="{!AttachmentList}" var="att" rendered="{!IF(AttachmentList.size > 0,true,false)}">
+            <apex:column headerValue="Title">
+                <a href="javascript:void(0);" onclick="clickfun('{!att.id}')">{!att.Name}</a>
+            </apex:column>
+            <apex:column value="{!att.ContentType}" headerValue="Type"/>
+            <apex:column value="{!att.CreatedDate}"/>
+            <apex:column value="{!att.CreatedById}"/>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:page>

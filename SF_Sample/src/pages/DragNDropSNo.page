@@ -1,0 +1,28 @@
+<apex:page standardController="Account" extensions="DragNDropSNoCtrl">
+<apex:stylesheet value="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"/>
+    <apex:includeScript value="//code.jquery.com/jquery-1.10.2.js"/>
+    <apex:includeScript value="//code.jquery.com/ui/1.11.2/jquery-ui.js"/>
+
+    <script>
+        $(document).ready(function(){
+            $(document.getElementById("{!$Component.theForm.thePageBlock.theTable}")).find("tbody").sortable();
+        });
+    </script>
+    
+    <apex:form id="theForm">
+  <apex:pageBlock id="thePageBlock" >
+  <apex:variable var="rowNum" value="{!0}"/>
+  <apex:pageBlockTable value="{!conList}" var="ct" id="theTable">
+                <apex:column headerValue="No">
+                     <apex:variable var="rowNum" value="{!rowNum + 1}"/>
+                     {!rowNum}
+                     <apex:param assignTo="{!ct.serial_no__c}" value="{!rowNum}"/>
+                     {!ct.serial_no__c}
+                 </apex:column>
+                 <apex:column value="{!ct.serial_no__c}"/>
+                <apex:column value="{!ct.OrderNo__c}"/>
+                <apex:column value="{!ct.Name}"/>
+   </apex:pageBlockTable>  
+    </apex:pageBlock>
+   </apex:form> 
+</apex:page>

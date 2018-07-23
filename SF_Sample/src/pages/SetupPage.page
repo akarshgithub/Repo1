@@ -1,0 +1,33 @@
+<apex:page standardController="Contact" extensions="setupController" action="{!getConlist}">
+  <apex:form >
+            <script type="text/javascript">
+                 function enableDisable(cb)
+                {
+                alert('hello');
+                alert('hello');
+                  $("input:checkbox[id*=looped]").removeAttr('checked');
+                  $(cb).attr('checked', 'checked');
+                  alert('hello');
+                }
+            </script>
+      <apex:pageBlock >
+          <apex:pageBlockSection >
+              <apex:inputField value="{!contact.lastname}"/>
+              <apex:inputField value="{!contact.Accountid}"/>
+          </apex:pageBlockSection>
+           <apex:pageBlockButtons >
+                  <apex:commandButton value="Save" action="{!save}"/>
+           </apex:pageBlockButtons>
+      </apex:pageBlock>
+      <apex:pageBlock >
+          <apex:pageBlockSection >
+              <apex:pageBlockTable value="{!ConlistW}" var="c">
+              <apex:column >
+               <apex:inputCheckbox id="looped" value="{!c.isselected}" onclick="enableDisable(this)" />
+               </apex:column>
+              <apex:column value="{!c.con.lastname}"/>    
+              </apex:pageBlockTable>
+          </apex:pageBlockSection>
+      </apex:pageBlock>
+  </apex:form>
+</apex:page>

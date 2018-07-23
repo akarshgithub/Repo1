@@ -1,0 +1,21 @@
+<apex:page controller="blusyn.GetBilling_Detais_AC" >
+   <script>
+   	    var cached_onload = window.onload; 
+        window.onload = function()
+        {                     
+            ajaxSetClientLoaded();
+            if (cached_onload != null) 
+                cached_onload();	              
+        }
+   </script> 
+   <apex:form id="theform">
+   <apex:actionFunction name="ajaxSetClientLoaded" action="{!doSomething}" reRender="theform"/>
+	   <apex:outputPanel rendered="{!hidesection}"> 
+		   <center>
+		         <b>Account is not yet configured for use with Blu Synergy. Please click on the [Configure Billing Account] button first.</b><br/><br/>
+		         <apex:commandButton value="Back to Account" action="{!backtoaccount}"/> 
+		         
+		   </center> 
+	   </apex:outputPanel> 
+   </apex:form>
+</apex:page>

@@ -1,0 +1,8 @@
+<apex:page standardController="Contact">
+  <!-- Begin Default Content REMOVE THIS -->
+  <apex:sectionHeader title="Contact" subtitle="New Contact"/>
+  <apex:image value="http://bit.ly/17iLknp"/>
+  <h1>Congratulations</h1>
+  This is your new Page
+  <!-- End Default Content REMOVE THIS -->
+</apex:page>

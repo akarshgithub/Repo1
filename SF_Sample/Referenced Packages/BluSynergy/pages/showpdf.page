@@ -1,0 +1,20 @@
+<apex:page standardController="Invoice__c" sidebar="false" showHeader="false" standardStylesheets="false">
+    
+    <script type="text/javascript" src="/soap/ajax/27.0/connection.js"></script>
+    <script>  
+        var queryString = "select id from Attachment where parentId = \'{!$Currentpage.parameters.id}\'";
+        sforce.connection.sessionId = "{!$Api.Session_ID}";
+        var result = sforce.connection.query(queryString);
+        var records = result.getArray("records");
+        
+        if(records != '' && records != 'null' && records.length > 0){
+            var recid = '';
+            for (var i=0; i< records.length && i < 200 ; i++) {
+                var record = records[i];
+                recid = record.Id;
+            }
+            sforce.one.navigateToURL('/servlet/servlet.FileDownload?file='+recid);
+        }
+        
+    </script>
+</apex:page>

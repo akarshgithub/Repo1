@@ -1,0 +1,20 @@
+<apex:page standardController="Opportunity" extensions="AccountVsContacts">
+  <!-- Begin Default Content REMOVE THIS -->
+  <apex:form >
+  <apex:pageblock >
+  <apex:pageBlockSection >
+  <apex:inputfield value="{!opp.Accountid}"/>
+  </apex:pageBlockSection>
+  <apex:pageBlockButtons >
+          <apex:commandButton action="{!search}" value="Search"/>
+      </apex:pageBlockButtons>
+      {!conList}
+      
+      <apex:repeat value="{!conList}" var="v" >
+          {!v.name}
+      </apex:repeat>
+      
+  <!-- End Default Content REMOVE THIS -->
+  </apex:pageblock>
+  </apex:form>
+</apex:page>

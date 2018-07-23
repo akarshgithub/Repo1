@@ -1,0 +1,19 @@
+<apex:page standardController="Test__c">
+  <!-- Begin Default Content REMOVE THIS -->
+  <h1>Congratulations</h1>
+  
+  This is your new Page: NewPage
+  <!-- End Default Content REMOVE THIS -->
+  <apex:form >
+  <apex:pageblock >
+  <apex:pageBlockSection >
+  <apex:inputfield value="{!Test__c.Name}"/>
+  <apex:inputfield value="{!Test__c.CountAttachment__c}"/>
+  <apex:inputfield value="{!Test__c.Name}"/>
+  <apex:inputfield value="{!Test__c.CountAttachment__c}"/>
+  <apex:inputfield value="{!Test__c.Name}"/>
+  <apex:inputfield value="{!Test__c.CountAttachment__c}"/>
+  </apex:pageBlockSection>
+  </apex:pageblock>
+  </apex:form>
+</apex:page>

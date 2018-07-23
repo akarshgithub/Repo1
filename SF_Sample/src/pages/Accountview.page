@@ -1,0 +1,5 @@
+<apex:page standardController="Account">
+  
+  {! Account.Custom_Address__c}
+  
+</apex:page>

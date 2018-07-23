@@ -1,0 +1,335 @@
+<apex:page controller="blusyn.BluSynergyLogin_AC">
+     
+    <apex:sectionheader title="Blusynergy Edit" subtitle="New Blusynergy"/>
+    <apex:form id="theform">
+        
+        <apex:pageMessage severity="warning" strength="1" summary="Please contact administrator to provide the permissions." rendered="{!!if($ObjectType.blusyn__BluSynergy_Details__c.Createable && $ObjectType.blusyn__BluSynergy_Details__c.Updateable,true,false)}"></apex:pageMessage>
+        
+        <apex:messages title="Errors Occured" styleClass="errorMsg" style="font-family:verdana,garamond,serif;" />
+        <apex:pageBlock title="Blusynergy Edit" mode="edit" rendered="{!isNew}">
+           <apex:pageBlockSection title="Information" columns="2" collapsible="false" >
+                <apex:pageBlockSectionItem rendered="{!$ObjectType.blusyn__BluSynergy_Details__c.fields.name.Createable}"> 
+                   <apex:outputLabel value="User Name"/> 
+                   <apex:inputField value="{!BluSynergyRecords.Name}"/> 
+                </apex:pageBlockSectionItem> 
+                 
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Show Statements"/>
+                   <apex:inputField value="{!records.blusyn__showStatements__c}"/>  
+                </apex:pageBlockSectionItem>
+                               
+                <apex:pageBlockSectionItem rendered="{!$ObjectType.blusyn__BluSynergy_Details__c.fields.blusyn__Password__c.Createable}">
+                   <apex:outputLabel value="Password"/>
+                   <apex:outputPanel styleClass="requiredInput" layout="block" style="position:relative;left:2px;"> 
+                       <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                       <apex:inputSecret value="{!BluSynergyRecords.blusyn__Password__c}" id="theInput" required="true"/>                
+                   </apex:outputPanel> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Show Payments"/>
+                   <apex:inputField value="{!records.blusyn__showPayments__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!$ObjectType.blusyn__Blusynergy__c.fields.blusyn__Endpoint_URL__c.Accessible}">
+                   <apex:outputLabel value="EndPoint URL"/>
+                   <apex:outputPanel styleClass="requiredInput" layout="block" style="position:relative;left:2px;"> 
+                       <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                       <apex:PanelGrid columns="2">
+                          https://<apex:inputText value="{!endPoint}" size="30"/>
+                       </apex:PanelGrid> 
+                   </apex:outputPanel>     
+                </apex:pageBlockSectionItem>
+                
+                 <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Allow Payments"/>
+                   <apex:inputField value="{!records.blusyn__allowPayments__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!$ObjectType.blusyn__Blusynergy__c.fields.blusyn__loginUrl__c.Accessible}">
+                   <apex:outputLabel value="Login URL"/>
+                   <apex:outputPanel styleClass="requiredInput" layout="block" style="position:relative;left:2px;"> 
+                       <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                       <apex:inputText value="{!loginpoint}" size="30"/>
+                   </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                 <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Allow Profile Edit"/>
+                   <apex:inputField value="{!records.blusyn__allowProfileEdit__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!$ObjectType.blusyn__Blusynergy__c.fields.blusyn__cssURL__c.Accessible}">
+                   <apex:outputLabel value="CSS URL"/>
+                   <apex:outputPanel styleClass="requiredInput" layout="block" style="position:relative;left:2px;"> 
+                        <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                        <apex:inputText value="{!csspoint}" size="30"/>
+                   </apex:outputPanel>   
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Pdf Mode"/>
+                   <apex:inputField value="{!records.blusyn__pdfMode__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="EditOrderOptions"/>
+                   <apex:inputField value="{!records.blusyn__editOrderOptions__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Show NavigationBar"/>
+                   <apex:inputField value="{!records.blusyn__showNavigationBar__c}"/>  
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Custom Label 1"/>
+                   <apex:inputField value="{!records.blusyn__invoiceCustomLabel1__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Custom Label 2"/>
+                   <apex:inputField value="{!records.blusyn__invoiceCustomLabel2__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Custom Label 3"/>
+                   <apex:inputField value="{!records.blusyn__invoiceCustomLabel3__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Custom Label 4"/>
+                   <apex:inputField value="{!records.blusyn__invoiceCustomLabel4__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Custom Label 5"/>
+                   <apex:inputField value="{!records.blusyn__invoiceCustomLabel5__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Custom Label 6"/>
+                   <apex:inputField value="{!records.blusyn__invoiceCustomLabel6__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Custom Label 7"/>
+                   <apex:inputField value="{!records.blusyn__invoiceCustomLabel7__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Custom Label 8"/>
+                   <apex:inputField value="{!records.blusyn__invoiceCustomLabel8__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Custom Label 9"/>
+                   <apex:inputField value="{!records.blusyn__invoiceCustomLabel9__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Custom Label 10"/>
+                   <apex:inputField value="{!records.blusyn__invoiceCustomLabel10__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Show Header Level2"/>
+                   <apex:inputField value="{!records.blusyn__showLevel2Header__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Show Header Level3"/>
+                   <apex:inputField value="{!records.blusyn__showLevel3Header__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Show / Hide Levels"/>
+                   <apex:inputField value="{!records.blusyn__hideIndentedItem__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Header Level1 Mapping"/>
+                   <apex:inputField value="{!records.blusyn__headerLevel1__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Header Level2 Mapping"/>
+                   <apex:inputField value="{!records.blusyn__headerLevel2__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Header Level3 Mapping"/>
+                   <apex:inputField value="{!records.blusyn__headerLevel3__c}"/>  
+                </apex:pageBlockSectionItem>
+           </apex:pageBlockSection> 
+           
+           <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{!save}" rerender="theform" rendered="{!if($ObjectType.blusyn__Blusynergy__c.Createable && $ObjectType.blusyn__BluSynergy_Details__c.Createable,true,false)}"/>
+                <apex:commandButton value="Cancel" action="{!cancel}" immediate="true"/>
+           </apex:pageBlockButtons>
+        </apex:pageBlock> 
+        
+        
+        
+        <apex:pageBlock title="Blusynergy Details" mode="detail" rendered="{!!isNew}">
+           <apex:pageBlockSection title="Detail Information" columns="2" collapsible="false">
+                <apex:pageBlockSectionItem rendered="{!$ObjectType.blusyn__BluSynergy_Details__c.fields.Name.Accessible}"> 
+                   <apex:outputLabel value="User Name"/> 
+                   <apex:outputField value="{!BluSynergyRecords.Name}"/>
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Show Statements"/>
+                   <apex:outputField value="{!records.blusyn__showStatements__c}"/>  
+                </apex:pageBlockSectionItem>
+                               
+                <apex:pageBlockSectionItem rendered="{!$ObjectType.blusyn__BluSynergy_Details__c.fields.blusyn__Password__c.Accessible}">
+                   <apex:outputLabel value="Password"/>
+                   <apex:outputText value="XXXXXXXX" id="theInput" />                
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Show Payments"/>
+                   <apex:outputField value="{!records.blusyn__showPayments__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!$ObjectType.blusyn__Blusynergy__c.fields.blusyn__Endpoint_URL__c.Accessible}">
+                   <apex:outputLabel value="EndPoint URL"/>
+                   <apex:PanelGrid columns="2">
+                          https://<apex:outputText value="{!endPoint}" />
+                   </apex:PanelGrid> 
+                </apex:pageBlockSectionItem>
+                
+                 <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Allow Payments"/>
+                   <apex:outputField value="{!records.blusyn__allowPayments__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!$ObjectType.blusyn__Blusynergy__c.fields.blusyn__loginUrl__c.Accessible}">
+                   <apex:outputLabel value="Login URL"/>
+                   <apex:outputText value="{!loginpoint}"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Allow Profile Edit"/>
+                   <apex:outputField value="{!records.blusyn__allowProfileEdit__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem rendered="{!$ObjectType.blusyn__Blusynergy__c.fields.blusyn__cssURL__c.Accessible}">
+                   <apex:outputLabel value="CSS URL"/>
+                   <apex:outputText value="{!csspoint}" />
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Pdf Mode"/>
+                   <apex:outputField value="{!records.blusyn__pdfMode__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="EditOrderOptions"/>
+                   <apex:outputField value="{!records.blusyn__editOrderOptions__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem > 
+                   <apex:outputLabel value="Show NavigationBar"/>
+                   <apex:outputField value="{!records.blusyn__showNavigationBar__c}"/>  
+                </apex:pageBlockSectionItem> 
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Custom Label 1"/>
+                   <apex:outputField value="{!records.blusyn__invoiceCustomLabel1__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Custom Label 2"/>
+                   <apex:outputField value="{!records.blusyn__invoiceCustomLabel2__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Custom Label 3"/>
+                   <apex:outputField value="{!records.blusyn__invoiceCustomLabel3__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Custom Label 4"/>
+                   <apex:outputField value="{!records.blusyn__invoiceCustomLabel4__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Custom Label 5"/>
+                   <apex:outputField value="{!records.blusyn__invoiceCustomLabel5__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Custom Label 6"/>
+                   <apex:outputField value="{!records.blusyn__invoiceCustomLabel6__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Custom Label 7"/>
+                   <apex:outputField value="{!records.blusyn__invoiceCustomLabel7__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Custom Label 8"/>
+                   <apex:outputField value="{!records.blusyn__invoiceCustomLabel8__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Custom Label 9"/>
+                   <apex:outputField value="{!records.blusyn__invoiceCustomLabel9__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Custom Label 10"/>
+                   <apex:outputField value="{!records.blusyn__invoiceCustomLabel10__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Show Header Level2"/>
+                   <apex:outputField value="{!records.blusyn__showLevel2Header__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Show Header Level3"/>
+                   <apex:outputField value="{!records.blusyn__showLevel3Header__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Show / Hide Levels"/>
+                   <apex:outputField value="{!records.blusyn__hideIndentedItem__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Header Level1 Mapping"/>
+                   <apex:outputField value="{!records.blusyn__headerLevel1__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Header Level2 Mapping"/>
+                   <apex:outputField value="{!records.blusyn__headerLevel2__c}"/>  
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Header Level3 Mapping"/>
+                   <apex:outputField value="{!records.blusyn__headerLevel3__c}"/>  
+                </apex:pageBlockSectionItem>
+           </apex:pageBlockSection>
+         
+           
+           <center>
+               
+               <apex:commandLink value="Configure Inbound Integration" action="{!inboundIntegration}" reRender="theform"/>
+               <apex:iframe src="{!WSResponse}" scrolling="true" id="iframe2" height="150px"/>
+           
+           </center>
+          
+             
+           <apex:pageBlockButtons >
+                <apex:commandButton value="Edit" action="{!edit}" rendered="{!if($ObjectType.blusyn__Blusynergy__c.Updateable && $ObjectType.blusyn__BluSynergy_Details__c.Updateable,true,false)}"/>
+                <apex:commandButton value="Delete" action="{!remove}" rendered="{!if($ObjectType.blusyn__Blusynergy__c.Deletable && $ObjectType.blusyn__BluSynergy_Details__c.Deletable,true,false)}"/>
+           </apex:pageBlockButtons> 
+        </apex:pageBlock> 
+        
+    </apex:form>
+</apex:page>

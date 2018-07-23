@@ -1,0 +1,73 @@
+<apex:page applyBodyTag="false"
+applyHtmlTag="false"
+cache="false" 
+contentType="text/HTML" 
+docType="html-5.0" 
+renderAs="pdf"
+showHeader="false"
+sidebar="false"
+standardStylesheets="false">
+<!-- NOTE:  applyBodyTag="false" is REQUIRED in order to allow for left/center/right alignment to take effect when rendering as PDF.  -->
+<head>
+<style type="text/css">
+div.left table{
+    margin-right: auto;
+}
+div.centered table{
+    margin:0 auto;
+}
+div.right table{
+    margin-left: auto;
+}
+</style>
+</head>
+<body>
+    <div class="left">
+        <c:barcode value="align left" height="20"/>
+    </div>
+    <br/>
+    <div class="centered">
+        <c:barcode value="align center" height="20"/>
+    </div>
+    <br/>
+    <div class="right">
+        <c:barcode value="align right" height="20"/>
+    </div>
+    <br/>
+    <div class="centered">
+        <c:barcode value="extra-wide" width="3"/>
+    </div>
+    <br/>
+    <div class="centered">
+        <c:barcode value="extra-high" height="100"/>
+    </div>
+    <br/>
+
+<table>
+    <tr>
+        <td>default</td>
+        <td><c:barcode value="01234567ABCDEF"/><br/></td>
+    </tr>
+    <tr>
+        <td>code 128</td>
+        <td><c:barcode value="01234567ABCDEF"   type="code128"/><br/></td>  
+    </tr>
+    <tr>
+        <td>code 39</td>
+        <td colspan="2"><c:barcode value="01234567ABCDEF"   type="code39"/><br/></td>   
+    </tr>
+    <tr>
+        <td>i2of5</td>
+        <td><c:barcode value="123456789012" type="int25"/><br/></td>  
+    </tr>
+    <tr>
+        <td>ean-13</td>
+        <td><c:barcode value="1234567890128"    type="ean13"/><br/></td>   
+    </tr>
+    <tr>
+        <td>upc-a</td>
+        <td><c:barcode value="123456789012"     type="upca"/><br/></td>      
+    </tr>   
+</table>
+</body>
+</apex:page>

@@ -1,0 +1,10 @@
+<apex:page standardController="Account" Extensions="blusyn.Iframe_Design" >   
+  <apex:form >
+     <center><apex:commandButton value="Back to Account" action="{!backtoaccount}"/></center> 
+       <!--<apex:detail relatedList="true" title="true" inlineEdit="true"/> <br/>-->
+       <apex:iframe src="{!Url}" scrolling="true"/> 
+   
+     <center><apex:commandButton value="Back to Account" action="{!backtoaccount}"/></center>
+   
+   </apex:form>
+</apex:page>
